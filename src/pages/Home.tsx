@@ -12,6 +12,8 @@ const Home = () => {
     const [password, setPassword] = useState<string>('');
     const { setIsLoggedIn } = useContext(AppContext)
     const navigate = useNavigate()
+    const [show, setShow] = useState(false);
+    const handleClick = () => setShow(!show);
 
     const validateUser = async (email: string, password: string) => {
         const loggedIn = await login(email, password)
@@ -32,7 +34,12 @@ const Home = () => {
                     <h1>Faça o login</h1>
                 </Center>
                 <Input placeholder="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-                <Input placeholder="password" value={password} onChange={(event)=>setPassword(event.target.value)} />
+                <Input
+                    placeholder="password"
+                    type={show ? 'text' : 'password'}
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
                 <Center>
                     <DButton
                         onClick={() => validateUser(email, password)}
